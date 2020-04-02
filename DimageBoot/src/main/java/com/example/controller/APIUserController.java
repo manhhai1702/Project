@@ -15,44 +15,61 @@ import com.example.service.UserService;
 public class APIUserController {
   @Autowired
   private UserService userService;
+  
+
+  @RequestMapping(value={"/login"})
+  public String login(Model model) {
+    //model.addAttribute("listUser", userService.findAll());
+    return "login";
+  }
+  @RequestMapping(value={"/login_admin"})
+  public String loginAdmin(Model model) {
+    //model.addAttribute("listUser", userService.findAll());
+    return "login_admin";
+  }
+  @RequestMapping(value={"/login_action"})
+  public String loginAction(Model model) {
+    //model.addAttribute("listUser", userService.findAll());
+    return "login";
+  }
   @RequestMapping(value={"/", "/user-list"})
-  public String listCustomer(Model model) {
+  public String listUser(Model model) {
     model.addAttribute("listUser", userService.findAll());
-    return "userEntity-list";
+    return "list";
   }
   @RequestMapping("/user-save")
-  public String insertCustomer(Model model) {
+  public String insertUser(Model model) {
     model.addAttribute("customer", new s_mst_user_entity());
     return "userEntity-save";
   }
   @RequestMapping("/user-view/{id}")
-  public String viewCustomer(@PathVariable int id, Model model) {
+  public String viewUser(@PathVariable int id, Model model) {
 	  s_mst_user_entity userEntity = userService.findById(id);
     model.addAttribute("userEntity", userEntity);
-    return "userEntity-view";
+    return "view";
   }
   
   @RequestMapping("/user-update/{id}")
-  public String updateCustomer(@PathVariable int id, Model model) {
+  public String updateUser(@PathVariable int id, Model model) {
 	  s_mst_user_entity userEntity = userService.findById(id);
     model.addAttribute("userEntity", userEntity);
     return "userEntity-update";
   }
   @RequestMapping("/saveUser")
-  public String doSaveCustomer(@ModelAttribute("userEntity") s_mst_user_entity userEntity, Model model) {
+  public String doSaveUser(@ModelAttribute("userEntity") s_mst_user_entity userEntity, Model model) {
     userService.save(userEntity);
     model.addAttribute("listUser", userService.findAll());
     return "redirect:customer-list";
   }
   @RequestMapping("/updateUser")
-  public String doUpdateCustomer(@ModelAttribute("userEntity") s_mst_user_entity userEntity, Model model) {
+  public String doUpdateUser(@ModelAttribute("userEntity") s_mst_user_entity userEntity, Model model) {
     userService.update(userEntity);
     model.addAttribute("listCustomer", userService.findAll());
     return "userEntity-list";
   }
   
   @RequestMapping("/userDelete/{id}")
-  public String doDeleteCustomer(@PathVariable int id, Model model) {
+  public String doDeleteUser(@PathVariable int id, Model model) {
     userService.delete(id);
     model.addAttribute("listCustomer", userService.findAll());
     return "redirect:/customer-list";
