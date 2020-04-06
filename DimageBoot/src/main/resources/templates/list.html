@@ -1,72 +1,47 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-<!-- <link rel="stylesheet" type="text/css" href="mystyle.css"> -->
+
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+
 <link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-	integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-	crossorigin="anonymous"></script>
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-	crossorigin="anonymous"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-	crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
-<style>
-table, th, td, tr {
-	border: 1px solid black;
-}
-
-td {
-	padding-right: 30px;
-}
-</style>
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
-<body>
-	<h1>List User:</h1>
-<!-- 	<a th:href="@{/customer-save}">Add Customer</a> -->
-	<br />
-	<br />
-<div id="showlist">
-	<table>
-		<tr>
-			<th>Id</th>
-			<th>staff_cd</th>
-			<th>Name</th>
-			<th>Address</th>
-			<th>View</th>
-			<th>Edit</th>
-			<th>Delete</th>
-		</tr>
-		<th:block th:each="user : ${listUser}">
-			<tr>
-				<td><p th:text="${user.user_id}"></p></td>
-				<td><p th:text="${user.staff_cd}"></p></td>
-				<td><p th:text="${user.staff_name}"></p></td>
-				<td><p th:text="${user.staff_add}"></p></td>
-				<td><a th:href="@{/user-view/} + ${user.staff_cd}">View</a></td>
-				<td><a th:href="@{/user-update/} + ${user.staff_cd}">Edit</a></td>
-				<td><a th:href="@{/userDelete/} + ${user.staff_cd}">Delete</a></td>
-			</tr>
-		</th:block>
 
-	</table>
-</div>
-<div id="dataShow">
-	{{message}}
-</div>
+<body>
+
+	<h1>List User:</h1>
+	<div id="app">
+		<a type="button" class="btn btn-success"
+			v-bind:href="'./user-create'">Create new user</a>
+		<table>
+			<tr>
+				<th>Id</th>
+				<th>staff_cd</th>
+				<th>Name</th>
+				<th>Address</th>
+				<th>View</th>
+				<th>Edit</th>
+				<th>Delete</th>
+			</tr>
+			<tr v-for='data in users'>
+				<td>{{data.user_id}}</td>
+				<td>{{data.staff_cd}}</td>
+				<td>{{data.staff_name}}</td>
+				<td>{{data.staff_add}}</td>
+				<td><a v-bind:href="'./user-view/' + data.user_id">View</a></td>
+				<td><a href="./update">Edit</a></td>
+				<td><a href="./delete">Delete</a></td>
+			</tr>
+		</table>
+	</div>
 </body>
-<script>
-var dataShow = new Vue({
-	  el: '#dataShow',
-	  data: {
-	    message: 'Do you wanna build a Vue app?'
-	  }
-	})
-</script>
+<script type="text/javascript" src="./js/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript" src="./js/list.js"></script>
 </html>

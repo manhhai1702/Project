@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,30 +24,22 @@ public class APIUserController {
     //model.addAttribute("listUser", userService.findAll());
     return "login";
   }
-  @RequestMapping(value={"/login_admin"})
-  public String loginAdmin(Model model) {
+ 
+  @RequestMapping(value={"/user-list"})
+  public String listUser() {
     //model.addAttribute("listUser", userService.findAll());
-    return "login_admin";
-  }
-  @RequestMapping(value={"/login_action"})
-  public String loginAction(Model model) {
-    //model.addAttribute("listUser", userService.findAll());
-    return "login";
-  }
-  @RequestMapping(value={"/", "/user-list"})
-  public String listUser(Model model) {
-    model.addAttribute("listUser", userService.findAll());
     return "list";
   }
-  @RequestMapping("/user-save")
+
+  @RequestMapping("/user-create")
   public String insertUser(Model model) {
-    model.addAttribute("customer", new s_mst_user_entity());
-    return "userEntity-save";
+    
+    return "create";
   }
   @RequestMapping("/user-view/{id}")
-  public String viewUser(@PathVariable int id, Model model) {
-	  s_mst_user_entity userEntity = userService.findById(id);
-    model.addAttribute("userEntity", userEntity);
+  public String viewUser() {
+	//s_mst_user_entity userEntity = userService.findById(id);
+    //model.addAttribute("userEntity", userEntity);
     return "view";
   }
   

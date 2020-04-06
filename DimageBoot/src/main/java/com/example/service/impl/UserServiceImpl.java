@@ -14,20 +14,20 @@ import com.example.service.UserService;
 public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDao userDAO;
-	
+
 	@Override
 	public List<s_mst_user_entity> findAll() {
-		 return userDAO.findAll();
+		return userDAO.findAll();
 	}
 
 	@Override
 	public s_mst_user_entity findById(int id) {
-		 return userDAO.findById(id);
+		return userDAO.findById(id);
 	}
 
 	@Override
 	public void save(s_mst_user_entity userEntity) {
-		userDAO.save(userEntity);		
+		userDAO.save(userEntity);
 	}
 
 	@Override
@@ -38,9 +38,22 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void delete(int id) {
 		s_mst_user_entity userEntity = userDAO.findById(id);
-	    if (userEntity != null) {
-	    	userDAO.delete(userEntity);
-	    }
+		if (userEntity != null) {
+			userDAO.delete(userEntity);
+		}
+	}
+
+	@Override
+	public String maxStaffCd() {
+		String value = userDAO.findMaxStaffCd();
+		String[] listvalue = value.split("DSVN");
+		int number = Integer.parseInt(listvalue[1]) + 1;
+		if (number < 10) {
+			value = "DSVN0" + number;
+		} else {
+			value = "DSVN" + number;
+		}
+		return value;
 	}
 
 }

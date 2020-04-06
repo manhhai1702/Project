@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +33,9 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public s_mst_user_entity findById(int id) {
 	    Session session = this.sessionFactory.getCurrentSession();
-	    return session.get(s_mst_user_entity.class, id);
+	    
+	    s_mst_user_entity result = session.get(s_mst_user_entity.class, id);
+	    return result;
 	}
 
 	@Override
@@ -46,6 +49,14 @@ public class UserDaoImpl implements UserDao{
 	    Session session = this.sessionFactory.getCurrentSession();
 	    List<s_mst_user_entity> resultList = session.createQuery("FROM s_mst_user_entity", s_mst_user_entity.class).getResultList();
 	    return resultList;
+	}
+
+	@Override
+	public String findMaxStaffCd() {
+		Session session = this.sessionFactory.getCurrentSession();
+	    List<s_mst_user_entity> resultList = session.createQuery("FROM s_mst_user_entity", s_mst_user_entity.class).getResultList();
+	    String value = resultList.get(resultList.size()-1).getStaff_cd();
+	    return value;
 	}
 
 }

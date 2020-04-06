@@ -1,14 +1,55 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-<title>Spring Boot - Hibernate</title>
+<link rel="stylesheet" type="text/css" href="./css/create.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	
 </head>
 <body>
-  <a th:href="@{/customer-list}">List Customer</a><br />
-  <h1>Add new Customer:</h1>
-  <form th:action="@{/saveCustomer}" method="POST" th:object="${customer}">
-      Name: <input th:field="*{name}"/> <br/> <br/>
-      Address: <input th:field="*{address}"/> <br/> <br/>
-    <input type="submit" value="Submit" />
-  </form>
+	<h1>Create New User</h1>
+	<div>
+		<form id="app" @submit="checkForm" action="./api/user-save-API" method="post">
+			<div id="staffcd" class="form-inline">
+				<label  class="col-sm-2" for="staff_cd">Staff Code</label> 
+				<input  class=" form-control col-sm-2"   v-model="staff_cd" type="text"  :value ="staff_cd" name="staff_cd" disabled>
+			 </div>
+			<div class="form-inline">
+				<label  class="col-sm-2"  for="staffpass">Staff Password</label> 
+				<input  class=" form-control col-sm-2" id="staffpass" v-model="staffpass" type="password" name="staff_pass">
+			</div>
+			<div class="form-inline">
+				<label  class="col-sm-2" for="staffname">Name</label> 
+				<input  class="form-control col-sm-2" id="staffname" v-model="staffname" type="text" name="staff_name">
+			 </div>
+			<div class="form-inline">
+				<label  class="col-sm-2" for="staffbirthday">Birthday</label> 
+				<input  class=" form-control col-sm-2" id="staffbirthday" v-model="staffbirthday" type="text" name="staff_birthday" >
+			 </div>
+			<div class="form-inline">
+				<label  class="col-sm-2" for="staffmobile">Mobile</label> 
+				<input  class=" form-control col-sm-2" id="staffmobile" v-model="staffmobile" type="text" name="staff_mobile" >
+			 </div>
+			<div class="form-inline">
+				<label  class="col-sm-2" for="staffrole">Staff Role</label> 
+				<select class="form-control col-sm-2" id="staffrole" v-model="staffrole" name="staff_role">
+					<option value="0">user</option>
+					<option value="1">admin</option>
+				</select>
+			 </div>
+			<div class="form-inline  ">
+				<label  class="col-sm-2"></label> 
+				<input class="form-control col-sm-2 btn btn-info " type="submit" value="Submit">
+			 </div>
+		</form>
+	</div>
 </body>
+<script type="text/javascript" src="./js/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript" src="./js/create.js"></script>
 </html>
