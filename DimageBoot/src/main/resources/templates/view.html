@@ -1,37 +1,62 @@
 <html>
 <head>
 
-<link rel="stylesheet" type="text/css" href="../css/style.css">
-<link rel="stylesheet" type="text/css" href="../css/boostrap.css">
-<script type="text/javascript" src="../js/boostrap.js"></script>
-
-
+<link rel="stylesheet" type="text/css" href="../css/create.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	
 </head>
 
 <body>
 
 	<h1>User Information:</h1>
 
-	<div id="app">
-	 	<table>
+	<form  action="../api/user-update-API" method="post">
+		<div id="app1"><a type="button" class="btn btn-success" v-bind:href="'../user-list'">Back to List</a></div>
+	 	<table id="app">
 			<tr>
-				<th>Id</th>
-				<th>staff_cd</th>
+				<th width="5%">Id</th>
+				<th width="7%">staff_cd</th>
 				<th>Name</th>
 				<th>Address</th>
-				<th>Edit</th>
-				<th>Delete</th>
+				<th width="10%">Birthday</th>
+				<th width="10%">Mobile</th>
+				<th width="7%">Role</th>
+				<th width="10%">Create date</th>
+				<th></th>
 			</tr>
-			<tr v-for='data in users'>
-				<td>{{data.user_id}}</td>
-				<td>{{data.staff_cd}}</td>
-				<td>{{data.staff_name}}</td>
-				<td>{{data.staff_add}}</td>
-				<td><a href="./update">Edit</a></td>
-				<td><a href="./delete">Delete</a></td>
+			<tr>
+				
+					<td><input class=" form-control "   v-model="users.data.user_id" type="text"  name="user_id" ></td>
+					<td><input  class=" form-control "   v-model="users.data.staff_cd"  type="text"  name="staff_cd" ></td>
+					<td><input  class="form-control " id="users.staffname" v-model="users.data.staff_name" type="text" name="staff_name"></td>
+					<td><input  class="form-control " id="users.staffadd" v-model="users.data.staff_add" type="text" name="staff_add"></td>
+					<td><input  class=" form-control " id="users.staffbirthday" v-model="users.data.staff_birthday" type="text" name="staff_birthday" ></td>
+					<td><input  class=" form-control" id="users.staffmobile" v-model="users.data.staff_mobile" type="text" name="staff_mobile" ></td>
+					<td>
+						<select class="form-control" id="users.staffrole" v-model="users.data.staff_role" name="staff_role"> 
+							<option value="0">user</option>
+							<option value="1">admin</option>
+						</select>
+					</td>
+					<td><input  class=" form-control" id="create_date" v-model="users.data.create_date" type="text" name="create_date" ></td>
+					<td><input  class=" form-control" id="create_date" v-model="users.data.staff_password" type="text" name="staff_password" hidden ></td>
+				
 			</tr>
+			
 		</table>
-	</div>
+		<input class="form-control  btn btn-info " type="submit" value="Update">
+	</form>
+
+	
+</body>
+
 
 </body>
 <script type="text/javascript" src="../js/vue.js"></script>

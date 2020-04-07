@@ -2,15 +2,23 @@ new Vue({
   el: '#staffcd',
   data () {
     return {
-      staff_cd:"",
+      staffcd:"",
     }
   },
   mounted () {
     axios
       .get('/api/get-max-staffcd')
       .then(response => { 
-    	  	(this.staff_cd = response.data)
+    	  	(this.staffcd = response.data)
     	  })
   }
 })
+
+
+new Vue({
+	  el: "#app",
+	  data: {
+	  	msg: '',
+	  }
+	 })
 

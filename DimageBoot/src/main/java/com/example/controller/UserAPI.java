@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.example.entities.s_mst_user_entity;
 import com.example.service.UserService;
@@ -42,9 +43,24 @@ public class UserAPI {
 	  //save
 	  @RequestMapping(value={"/api/user-save-API"})
 	  @PostMapping
-	    public String saveAll(s_mst_user_entity userEntity) {
-	        //log.info(todos.toString());
-	         userService.update(userEntity);
-	         return "ok";
+	    public RedirectView saveUser(s_mst_user_entity userEntity) {
+	         userService.save(userEntity);
+	         return new RedirectView("../user-list");
 	    }
+	//save
+	  @RequestMapping(value={"/api/user-update-API"})
+	  @PostMapping
+	    public RedirectView updateUser(s_mst_user_entity userEntity) {
+	         userService.update(userEntity);
+	         return new RedirectView("../user-list");
+	    }
+	  
+	//delete user by id
+	  @RequestMapping(value={"/api/user-delete-API"})
+	  @GetMapping
+	  public RedirectView deleteUser(@RequestParam int id) {
+	    userService.delete(id);
+	    return new RedirectView("../user-list");
+	  }
+	  
 }

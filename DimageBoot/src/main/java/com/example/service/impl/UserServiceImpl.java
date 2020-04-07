@@ -1,5 +1,8 @@
 package com.example.service.impl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,11 +30,24 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void save(s_mst_user_entity userEntity) {
-		userDAO.save(userEntity);
+		DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        Date date = new Date();
+		userEntity.setDelete_flag("0");
+		userEntity.setCreate_date(dateFormat.format(date).toString());
+		try {
+			userDAO.save(userEntity);
+		}catch (Exception e){
+			e.getStackTrace();
+		}
+		
 	}
 
 	@Override
 	public void update(s_mst_user_entity userEntity) {
+		userEntity.setDelete_flag("0");
+		DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        Date date = new Date();
+		userEntity.setUpdate_date(dateFormat.format(date).toString());
 		userDAO.update(userEntity);
 	}
 

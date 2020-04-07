@@ -13,19 +13,25 @@
 </head>
 <body>
 	<h1>Create New User</h1>
+	
+	<div id="app"><a type="button" class="btn btn-success" v-bind:href="'./user-list'">Back to List</a></div>
 	<div>
-		<form id="app" @submit="checkForm" action="./api/user-save-API" method="post">
+		<form  @submit="checkForm" action="./api/user-save-API" method="post">
 			<div id="staffcd" class="form-inline">
-				<label  class="col-sm-2" for="staff_cd">Staff Code</label> 
-				<input  class=" form-control col-sm-2"   v-model="staff_cd" type="text"  :value ="staff_cd" name="staff_cd" disabled>
+				<label  class="col-sm-2" for="staffcd">Staff Code</label> 
+				<input  class=" form-control col-sm-2"   v-model="staffcd" type="text"  name="staff_cd" >
 			 </div>
 			<div class="form-inline">
 				<label  class="col-sm-2"  for="staffpass">Staff Password</label> 
-				<input  class=" form-control col-sm-2" id="staffpass" v-model="staffpass" type="password" name="staff_pass">
+				<input  class=" form-control col-sm-2" id="staffpass" v-model="staffpass" type="password" name="staff_password">
 			</div>
 			<div class="form-inline">
 				<label  class="col-sm-2" for="staffname">Name</label> 
 				<input  class="form-control col-sm-2" id="staffname" v-model="staffname" type="text" name="staff_name">
+			 </div>
+			 <div class="form-inline">
+				<label  class="col-sm-2" for="staffadd">Address</label> 
+				<input  class="form-control col-sm-2" id="staffadd" v-model="staffadd" type="text" name="staff_add">
 			 </div>
 			<div class="form-inline">
 				<label  class="col-sm-2" for="staffbirthday">Birthday</label> 

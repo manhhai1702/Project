@@ -17,16 +17,14 @@
 
 	<h1>List User:</h1>
 	<div id="app">
-		<a type="button" class="btn btn-success"
-			v-bind:href="'./user-create'">Create new user</a>
+		<a type="button" class="btn btn-success" v-bind:href="'./user-create'">Create new user</a>
 		<table>
 			<tr>
 				<th>Id</th>
 				<th>staff_cd</th>
 				<th>Name</th>
 				<th>Address</th>
-				<th>View</th>
-				<th>Edit</th>
+				<th>View/edit</th>
 				<th>Delete</th>
 			</tr>
 			<tr v-for='data in users'>
@@ -34,9 +32,8 @@
 				<td>{{data.staff_cd}}</td>
 				<td>{{data.staff_name}}</td>
 				<td>{{data.staff_add}}</td>
-				<td><a v-bind:href="'./user-view/' + data.user_id">View</a></td>
-				<td><a href="./update">Edit</a></td>
-				<td><a href="./delete">Delete</a></td>
+				<td><a v-bind:href="'./user-view/' + data.user_id">View/edit</a></td>
+				<td><a v-bind:href="'./api/user-delete-API?id='+ data.user_id">Delete</a></td>
 			</tr>
 		</table>
 	</div>

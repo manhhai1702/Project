@@ -18,7 +18,6 @@ public class APIUserController {
   @Autowired
   private UserService userService;
   
-
   @RequestMapping(value={"/login"})
   public String login(Model model) {
     //model.addAttribute("listUser", userService.findAll());
@@ -43,29 +42,4 @@ public class APIUserController {
     return "view";
   }
   
-  @RequestMapping("/user-update/{id}")
-  public String updateUser(@PathVariable int id, Model model) {
-	  s_mst_user_entity userEntity = userService.findById(id);
-    model.addAttribute("userEntity", userEntity);
-    return "userEntity-update";
-  }
-  @RequestMapping("/saveUser")
-  public String doSaveUser(@ModelAttribute("userEntity") s_mst_user_entity userEntity, Model model) {
-    userService.save(userEntity);
-    model.addAttribute("listUser", userService.findAll());
-    return "redirect:customer-list";
-  }
-  @RequestMapping("/updateUser")
-  public String doUpdateUser(@ModelAttribute("userEntity") s_mst_user_entity userEntity, Model model) {
-    userService.update(userEntity);
-    model.addAttribute("listCustomer", userService.findAll());
-    return "userEntity-list";
-  }
-  
-  @RequestMapping("/userDelete/{id}")
-  public String doDeleteUser(@PathVariable int id, Model model) {
-    userService.delete(id);
-    model.addAttribute("listCustomer", userService.findAll());
-    return "redirect:/customer-list";
-  }
 }
