@@ -72,4 +72,9 @@ public class UserServiceImpl implements UserService {
 		return value;
 	}
 
+	@Override
+	public s_mst_user_entity findByStaffcd(String staff_cd) {
+		return userDAO.findByStaffcd(staff_cd);
+	}
+
 }

@@ -18,12 +18,19 @@ public class APIUserController {
   @Autowired
   private UserService userService;
   
+  
+  @RequestMapping(value={"/","/home"})
+  public String home(Model model) {
+    return "home";
+  }
   @RequestMapping(value={"/login"})
   public String login(Model model) {
-    //model.addAttribute("listUser", userService.findAll());
     return "login";
   }
- 
+  @RequestMapping(value={"/loginAdmin"})
+  public String loginAdmin(Model model) {
+    return "login_admin";
+  }
   @RequestMapping(value={"/user-list"})
   public String listUser() {
     //model.addAttribute("listUser", userService.findAll());

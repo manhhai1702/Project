@@ -2,6 +2,8 @@ package com.example.dao.impl;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -57,6 +59,23 @@ public class UserDaoImpl implements UserDao{
 	    List<s_mst_user_entity> resultList = session.createQuery("FROM s_mst_user_entity", s_mst_user_entity.class).getResultList();
 	    String value = resultList.get(resultList.size()-1).getStaff_cd();
 	    return value;
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public s_mst_user_entity findByStaffcd(String staff_cd) {
+		Session session = this.sessionFactory.getCurrentSession();
+		
+		try {
+		Query query = session.createQuery("FROM s_mst_user_entity  WHERE staff_cd = :staff_cd");
+		query.setParameter("staff_cd", staff_cd);
+		s_mst_user_entity result = (s_mst_user_entity) query.getSingleResult();
+		return result;
+		}catch (Exception e) {
+			 e.getStackTrace();
+		}
+	    
+	    return null;
 	}
 
 }

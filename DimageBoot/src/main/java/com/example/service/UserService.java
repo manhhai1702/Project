@@ -11,6 +11,8 @@ public interface UserService{
 	
 	public s_mst_user_entity findById(final int id) ;
 	
+	public s_mst_user_entity findByStaffcd(final String staff_cd) ;
+	
 	public void save(final s_mst_user_entity userEntity);
 	
 	public void update(final s_mst_user_entity userEntity);

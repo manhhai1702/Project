@@ -1,0 +1,18 @@
+{
+  "version": "2.0",
+  "app_name": "ProjectChalice",
+  "stages": {
+    "dev": {
+      "environment_variables": {
+        "USERS_TABLE_NAME": "users-app-21658b12-517e-4441-baef-99b8fc2f0b61",
+        "APP_TABLE_NAME": "todo-app-323ca4c3-54fb-4e49-a584-c52625e5d85d"
+      },
+      "autogen_policy": false,
+      "api_gateway_stage": "api"
+    }
+  },
+    "dev": {
+      "api_gateway_stage": "api"
+    }
+  }
+
