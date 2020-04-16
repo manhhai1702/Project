@@ -17,6 +17,7 @@ def get_users_db():
 def hello_post():
     request_body = app.current_request.json_body
     return {'hello': request_body}
+
 @app.authorizer()
 def jwt_auth(auth_request):
     token = auth_request.token
@@ -27,8 +28,7 @@ def jwt_auth(auth_request):
 def login():
     body = app.current_request.json_body
     record = get_users_db().get_item(body['username'])
-    jwt_token = auth.get_jwt_token(
-        body['username'], body['password'], record)
+    jwt_token = auth.get_jwt_token(body['username'], body['password'], record[0])
     return {'token': jwt_token}
 
 

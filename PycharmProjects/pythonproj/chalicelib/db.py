@@ -22,7 +22,7 @@ class mysqlTodoDB(object):
     return output
 
   def get_item(self,  username):
-    sql_statement = "SELECT * FROM USERS WHERE username = %s"
-    my_database.execute(sql_statement, username)
+    sql = "SELECT * FROM users WHERE username = %s"
+    my_database.execute(sql, (username,))
     output = my_database.fetchall()
     return output
