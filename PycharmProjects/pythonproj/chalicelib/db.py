@@ -26,3 +26,21 @@ class mysqlTodoDB(object):
     my_database.execute(sql, (username,))
     output = my_database.fetchall()
     return output
+
+  def delete_item(self, username):
+    sql = "DELETE FROM users where username = %s"
+    my_database.execute(sql, (username,))
+    mydb.commit()
+    return "ok"
+
+  def add_item(self, param):
+    uid = param["uid"]
+    username = param["username"]
+    password = user.encodeBcrypt_password(param["password"])
+    salt = param["salt"]
+    rounds = param["rounds"]
+    sql = "INSERT INTO users (uuid,username,salt,rounds, hashed) values(%s,%s,%s,%s,%s)"
+    param = (uid, username, salt, rounds, password)
+    my_database.execute(sql, param)
+    mydb.commit()
+    return "done"

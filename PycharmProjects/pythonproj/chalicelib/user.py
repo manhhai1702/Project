@@ -17,13 +17,5 @@ def encodeBcrypt_password(password):
     hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
     return hashed
 def checkpass(password, hashed):
-    passcheck = '1213456'
     ischeck = bcrypt.checkpw(hashed.encode('utf8'), password.encode('utf-8'))
-    isam = bcrypt.checkpw(passcheck.encode('utf8'), password.encode('utf-8'))
-
-
-    #check = bcrypt.checkpw(hashed, passcheck.encode('utf8'))
-    #if bcrypt.checkpw(password.encode('utf-8'), hashed):
-    #    return True
-
     return ischeck
