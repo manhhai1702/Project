@@ -2,9 +2,14 @@ package com.example.service.impl;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,22 +36,22 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void save(s_mst_user_entity userEntity) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-        Date date = new Date();
+		Date date = new Date();
 		userEntity.setDelete_flag("0");
 		userEntity.setCreate_date(dateFormat.format(date).toString());
 		try {
 			userDAO.save(userEntity);
-		}catch (Exception e){
+		} catch (Exception e) {
 			e.getStackTrace();
 		}
-		
+
 	}
 
 	@Override
 	public void update(s_mst_user_entity userEntity) {
 		userEntity.setDelete_flag("0");
 		DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-        Date date = new Date();
+		Date date = new Date();
 		userEntity.setUpdate_date(dateFormat.format(date).toString());
 		userDAO.update(userEntity);
 	}
@@ -76,5 +81,22 @@ public class UserServiceImpl implements UserService {
 	public s_mst_user_entity findByStaffcd(String staff_cd) {
 		return userDAO.findByStaffcd(staff_cd);
 	}
+
+	@Override
+	public s_mst_user_entity loginUser(String staff_cd, String staff_pass) {
+
+		s_mst_user_entity result = userDAO.findByStaffcd(staff_cd);
+		if (result != null) {
+			// decode Bcrypt Pass
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			if (encoder.matches(staff_pass, result.getStaff_password())) {
+				//getAuthorities(result.getStaff_role());
+				return result;
+			}
+
+		}
+		return null;
+	}
+	
 
 }

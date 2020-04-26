@@ -67,15 +67,33 @@ public class UserDaoImpl implements UserDao{
 		Session session = this.sessionFactory.getCurrentSession();
 		
 		try {
-		Query query = session.createQuery("FROM s_mst_user_entity  WHERE staff_cd = :staff_cd");
-		query.setParameter("staff_cd", staff_cd);
-		s_mst_user_entity result = (s_mst_user_entity) query.getSingleResult();
-		return result;
+			Query query = session.createQuery("FROM s_mst_user_entity  WHERE staff_cd = :staff_cd");
+			query.setParameter("staff_cd", staff_cd);
+			s_mst_user_entity result = (s_mst_user_entity) query.getSingleResult();
+			return result;
 		}catch (Exception e) {
 			 e.getStackTrace();
 		}
 	    
 	    return null;
 	}
+
+//	@SuppressWarnings("rawtypes")
+//	@Override
+//	public s_mst_user_entity findlogin(String staff_cd, String staff_password) {
+//		Session session = this.sessionFactory.getCurrentSession();
+//		
+//		try {
+//			Query query = session.createQuery("FROM s_mst_user_entity  WHERE staff_cd = :staff_cd AND staff_password = :staff_password");
+//			query.setParameter("staff_cd", staff_cd);
+//			query.setParameter("staff_password", staff_password);
+//			s_mst_user_entity result = (s_mst_user_entity) query.getSingleResult();
+//			return result;
+//		}catch (Exception e) {
+//			 e.getStackTrace();
+//		}
+//	    
+//	    return null;
+//	}
 
 }

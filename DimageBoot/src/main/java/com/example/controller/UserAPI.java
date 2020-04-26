@@ -1,11 +1,17 @@
 package com.example.controller;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,13 +21,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.example.config.JwtTokenProvider;
 import com.example.entities.s_mst_user_entity;
 import com.example.service.UserService;
 
+@EnableWebSecurity
 @RestController
-public class UserAPI {
+public class UserAPI<SimpleGrantedAuthority> {
 	 @Autowired
 	  private UserService userService;
+	 
+ 	
+ 	
+ 	
 	  //show list
 	  @RequestMapping(value={"/api/user-list-API"})
 	  @GetMapping
@@ -62,5 +74,27 @@ public class UserAPI {
 	    userService.delete(id);
 	    return new RedirectView("../user-list");
 	  }
+	   
+	  @Autowired
+	 	private AuthenticationManager authenticationManager;
+ 
+	  @RequestMapping(value={"/api/user-login"})
+	  @PostMapping
+	    public ResponseEntity<?> authenticateUser(@RequestParam String staff_cd,  String staff_password) {
+
+	        Authentication authentication = authenticationManager.authenticate(
+	                new UsernamePasswordAuthenticationToken(
+	                		staff_cd,
+	                		staff_password
+	                )
+	        );
+
+	        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+	        String jwt = JwtTokenProvider.generateToken(authentication);
+	        return ResponseEntity.ok(jwt);
+	    }
 	  
+	  
+
 }

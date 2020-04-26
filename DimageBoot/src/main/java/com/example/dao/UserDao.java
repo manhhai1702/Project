@@ -13,6 +13,7 @@ public interface UserDao {
 	public void delete(final s_mst_user_entity userEntity) ;
 	public List<s_mst_user_entity> findAll();
 	public String findMaxStaffCd();
+//	public s_mst_user_entity findlogin (String staff_cd, String staff_pass);
 }
 
 

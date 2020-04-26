@@ -5,15 +5,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-//import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.example.service.impl.CustomUserDetailsService;
+import com.example.service.impl.UserDetailsImpl;
 
 import javax.sql.DataSource;
 
@@ -27,23 +28,32 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private DataSource dataSource;
 
     @Autowired
-    private CustomUserDetailsService userDetailsService;
-
+    private UserDetailsImpl userDetailsService;
+    
+    @Bean
+    public JwtAuthenticationFilter authenticationJwtTokenFilter() {
+        return new JwtAuthenticationFilter();
+    }
+    
+    
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/","/home").permitAll()
-                .antMatchers("/user-list","/user-create","/api/**").hasAnyRole("1")
-                .antMatchers("/user-view/**").hasAnyRole("0")
-                //.anyRequest().authenticated()
-                .antMatchers("/login")
+                .antMatchers("/","/home","/js/**").permitAll()
+                .antMatchers("/login","/loginUser","/loginAdmin","/api/**","/user-view/**")
                 .permitAll()
+                .antMatchers("/user-list","/user-create").hasAnyRole("ADMIN")
+                .antMatchers("/user-view/*").hasAnyRole("USER")
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
+                .loginPage("/login")
                 .permitAll()
                 .and()
                 .csrf()
                 .disable();
+        
+        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
@@ -69,6 +79,15 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
+    @Bean
+    public RoleHierarchy roleHierarchy() {
+        RoleHierarchyImpl r = new RoleHierarchyImpl();
+        r.setHierarchy("ROLE_ADMIN >  ROLE_USER");
+        return r;
+    }
     
-
+    @Bean
+    public AuthenticationManager customAuthenticationManager() throws Exception {
+      return authenticationManager();
+    }
 }

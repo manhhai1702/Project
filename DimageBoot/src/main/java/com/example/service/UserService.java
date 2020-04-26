@@ -19,6 +19,8 @@ public interface UserService{
 	
 	public void delete(final int id);
 	
+	public s_mst_user_entity loginUser(String Staff_cd, String Pass) ;
+	
 }
 
 
